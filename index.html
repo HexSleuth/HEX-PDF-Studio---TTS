@@ -7010,7 +7010,7 @@
     }
     if (target === undefined) target = 0;
     playFromWord(target);
-    toast("⏪ Backward", "ok", 1200);
+    toast("Backward", "ok", 1200);
   }
 
   function skipForward() {
@@ -7036,7 +7036,7 @@
       target = Math.min(state.pdfData.allWords.length - 1, state.currentWordIndex + SKIP_WORD_COUNT);
     }
     playFromWord(target);
-    toast("⏩ Forward", "ok", 1200);
+    toast("Forward", "ok", 1200);
   }
 
   function togglePlayPause() {
