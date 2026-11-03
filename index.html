@@ -1551,6 +1551,446 @@
     .fs-page-nav.prev{left:10px;}
     .fs-page-nav.next{right:10px;}
   }
+
+  /* ============================================================
+     HEX — TTS NOTE / MEDIA / SOUND CONTROL PANEL (HEADER)
+     ============================================================ */
+  .tts-media-panel{
+    display:flex;
+    align-items:center;
+    gap:3px;
+    background:var(--panel-2);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:3px 6px 3px 4px;
+    flex:0 0 auto;
+  }
+  .tmp-btn{
+    width:28px;height:28px;
+    flex:0 0 auto;
+    border-radius:50%;
+    background:transparent;
+    border:0;
+    color:var(--text-dim);
+    display:grid;
+    place-items:center;
+    cursor:pointer;
+    transition:background .12s, color .12s;
+    padding:0;
+  }
+  .tmp-btn:hover{background:var(--bar-2);color:#fff;}
+  .tmp-btn:active{transform:scale(.92);}
+  .tmp-btn.active{color:var(--accent);}
+  .tmp-btn svg{width:14px;height:14px;}
+  .tmp-vol-wrap{
+    display:flex;
+    align-items:center;
+    gap:4px;
+    padding:0 4px;
+    border-left:1px solid var(--border);
+    border-right:1px solid var(--border);
+    margin:0 2px;
+  }
+  .tmp-vol-slider{
+    width:64px;
+    height:4px;
+    accent-color:var(--accent);
+    cursor:pointer;
+    -webkit-appearance:none;
+    background:rgba(255,255,255,.1);
+    border-radius:2px;
+    outline:none;
+  }
+  .tmp-vol-slider::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:11px;height:11px;
+    border-radius:50%;
+    background:var(--accent);
+    cursor:pointer;
+    box-shadow:0 0 0 2px rgba(20,115,230,.25);
+  }
+  .tmp-vol-slider::-moz-range-thumb{
+    width:11px;height:11px;
+    border-radius:50%;
+    background:var(--accent);
+    border:0;
+    cursor:pointer;
+  }
+  .tmp-status{
+    width:8px;height:8px;
+    border-radius:50%;
+    background:var(--text-dim2);
+    flex:0 0 auto;
+    transition:background .2s, box-shadow .2s;
+    margin-left:2px;
+  }
+  .tmp-status.on{background:var(--success);box-shadow:0 0 7px rgba(45,157,120,.85);}
+  .tmp-status.paused{background:var(--warn);box-shadow:0 0 7px rgba(232,163,61,.7);}
+
+  .tmp-note-btn{
+    position:relative;
+  }
+  .tmp-note-badge{
+    position:absolute;
+    top:2px;right:2px;
+    min-width:12px;height:12px;
+    border-radius:6px;
+    background:var(--danger);
+    color:#fff;
+    font-size:8px;
+    font-weight:700;
+    display:none;
+    place-items:center;
+    padding:0 3px;
+    line-height:12px;
+    text-align:center;
+    box-shadow:0 0 0 1.5px var(--panel-2);
+  }
+  .tmp-note-badge.show{display:grid;}
+
+  @media (max-width:820px){
+    .tts-media-panel{
+      border-radius:14px;
+      padding:2px 4px 2px 3px;
+      gap:1px;
+    }
+    .tmp-btn{width:34px;height:34px;}
+    .tmp-btn svg{width:16px;height:16px;}
+    .tmp-vol-wrap{padding:0 2px;margin:0;}
+    .tmp-vol-slider{width:46px;}
+    .tmp-status{width:7px;height:7px;}
+  }
+
+  /* Quick Pill in menubar (desktop) */
+  .tts-quick-pill{
+    display:flex;
+    align-items:center;
+    gap:4px;
+    background:var(--bar-2);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:2px 8px 2px 6px;
+    font-size:11px;
+    color:var(--text-dim);
+    margin-left:4px;
+    cursor:pointer;
+    transition:border-color .15s, color .15s;
+  }
+  .tts-quick-pill:hover{border-color:var(--accent);color:var(--text);}
+  .tts-quick-pill .tqp-status{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--text-dim2);
+    transition:background .2s, box-shadow .2s;
+  }
+  .tts-quick-pill .tqp-status.on{background:var(--success);box-shadow:0 0 6px rgba(45,157,120,.85);}
+  .tts-quick-pill .tqp-status.paused{background:var(--warn);}
+  .tts-quick-pill .tqp-btn{
+    width:20px;height:20px;
+    background:transparent;border:0;
+    color:var(--text-dim);
+    border-radius:50%;
+    cursor:pointer;
+    display:grid;place-items:center;
+    padding:0;
+  }
+  .tts-quick-pill .tqp-btn:hover{background:var(--bar);color:#fff;}
+  .tts-quick-pill .tqp-btn svg{width:11px;height:11px;}
+  @media (max-width:1080px){
+    .tts-quick-pill{display:none;}
+  }
+
+  /* ============================================================
+     HEX — AI ASSISTANT (Stirling PDF analysis + chat, no API key)
+     ============================================================ */
+  .ai-fab{
+    position:fixed;
+    right:calc(16px + var(--safe-right));
+    bottom:calc(22px + var(--safe-bottom) + 66px);
+    width:54px;
+    height:54px;
+    border-radius:50%;
+    background:linear-gradient(145deg,#8e44ad,#6c3483);
+    border:0;
+    color:#fff;
+    display:grid;
+    place-items:center;
+    cursor:pointer;
+    z-index:70;
+    box-shadow:0 6px 20px rgba(142,68,173,.55), 0 2px 6px rgba(0,0,0,.4);
+    transition:transform .15s, box-shadow .15s;
+  }
+  .ai-fab:hover{transform:scale(1.06);box-shadow:0 8px 26px rgba(142,68,173,.7);}
+  .ai-fab:active{transform:scale(.94);}
+  .ai-fab svg{width:26px;height:26px;}
+
+  @media (max-width:820px){
+    .ai-fab{
+      bottom:calc(var(--mobile-nav-h) + var(--safe-bottom) + 82px);
+      width:50px;
+      height:50px;
+    }
+    .ai-fab svg{width:22px;height:22px;}
+  }
+
+  .ai-backdrop{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    z-index:290;
+    display:none;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s ease;
+    -webkit-backdrop-filter:blur(2px);
+    backdrop-filter:blur(2px);
+  }
+  .ai-backdrop.open{display:block;opacity:1;pointer-events:auto;}
+
+  .ai-panel{
+    position:fixed;
+    top:0;
+    right:0;
+    bottom:0;
+    width:min(430px, 100vw);
+    background:var(--panel-2);
+    border-left:1px solid var(--border);
+    z-index:300;
+    display:flex;
+    flex-direction:column;
+    transform:translateX(105%);
+    transition:transform .3s cubic-bezier(.32,.72,0,1);
+    box-shadow:-6px 0 32px rgba(0,0,0,.55);
+  }
+  .ai-panel.open{transform:translateX(0);}
+
+  @media (max-width:820px){
+    .ai-panel{
+      width:100vw;
+      border-left:0;
+      border-top-left-radius:0;
+      border-top-right-radius:0;
+    }
+  }
+
+  .ai-head{
+    padding:14px 16px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex:0 0 auto;
+    background:linear-gradient(180deg, var(--bar), var(--panel-2));
+  }
+  .ai-head-text{flex:1 1 auto;min-width:0;}
+  .ai-head h3{
+    margin:0;
+    font-size:14.5px;
+    font-weight:700;
+    color:#fff;
+    letter-spacing:-.1px;
+    display:flex;
+    align-items:center;
+    gap:7px;
+  }
+  .ai-head h3::before{
+    content:"";
+    display:inline-block;
+    width:8px;height:8px;
+    border-radius:50%;
+    background:linear-gradient(135deg, #8e44ad, #e91e63);
+    box-shadow:0 0 8px rgba(142,68,173,.7);
+  }
+  .ai-head .ai-sub{
+    display:block;
+    font-size:11px;
+    color:var(--text-dim);
+    margin-top:3px;
+    font-weight:400;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .ai-close{
+    width:32px;height:32px;
+    border-radius:50%;
+    background:transparent;
+    border:0;
+    color:var(--text-dim);
+    cursor:pointer;
+    display:grid;
+    place-items:center;
+    font-size:14px;
+    flex:0 0 auto;
+    transition:background .12s, color .12s;
+  }
+  .ai-close:hover{background:var(--danger);color:#fff;}
+
+  .ai-quick-actions{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    padding:10px 14px;
+    border-bottom:1px solid var(--border-soft);
+    background:var(--panel-2);
+    flex:0 0 auto;
+  }
+  .ai-quick-btn{
+    padding:5px 10px;
+    background:var(--bar);
+    border:1px solid var(--border);
+    border-radius:14px;
+    color:var(--text-dim);
+    font-size:11px;
+    font-weight:500;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:border-color .12s, color .12s, background .12s;
+  }
+  .ai-quick-btn:hover{border-color:var(--accent);color:var(--text);background:var(--accent-soft);}
+
+  .ai-messages{
+    flex:1 1 auto;
+    overflow-y:auto;
+    padding:16px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior:contain;
+    background:
+      radial-gradient(circle at 20% 0%, rgba(142,68,173,.06) 0%, transparent 55%),
+      radial-gradient(circle at 80% 100%, rgba(20,115,230,.05) 0%, transparent 55%),
+      var(--panel-2);
+  }
+
+  .ai-msg{
+    display:flex;
+    gap:8px;
+    align-items:flex-start;
+    max-width:100%;
+    animation:aiMsgIn .2s ease-out;
+  }
+  @keyframes aiMsgIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+  .ai-msg .ai-avatar{
+    width:28px;height:28px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    flex:0 0 auto;
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.2px;
+  }
+  .ai-msg.user .ai-avatar{background:var(--accent);color:#fff;}
+  .ai-msg.assistant .ai-avatar{background:linear-gradient(145deg,#8e44ad,#6c3483);color:#fff;}
+
+  .ai-msg .ai-bubble{
+    padding:10px 14px;
+    border-radius:14px;
+    font-size:13px;
+    line-height:1.55;
+    color:var(--text);
+    max-width:calc(100% - 44px);
+    word-wrap:break-word;
+    overflow-wrap:break-word;
+    white-space:pre-wrap;
+  }
+  .ai-msg.user .ai-bubble{
+    background:var(--accent);
+    color:#fff;
+    border-bottom-right-radius:4px;
+  }
+  .ai-msg.user{flex-direction:row-reverse;}
+  .ai-msg.assistant .ai-bubble{
+    background:var(--bar);
+    border:1px solid var(--border);
+    border-bottom-left-radius:4px;
+  }
+
+  .ai-typing{
+    display:inline-flex;
+    gap:4px;
+    padding:4px 2px;
+    align-items:center;
+  }
+  .ai-typing span{
+    width:6px;height:6px;
+    border-radius:50%;
+    background:var(--text-dim);
+    animation:aiBounce 1.2s infinite;
+  }
+  .ai-typing span:nth-child(2){animation-delay:.15s;}
+  .ai-typing span:nth-child(3){animation-delay:.3s;}
+  @keyframes aiBounce{
+    0%,80%,100%{transform:translateY(0);opacity:.45;}
+    40%{transform:translateY(-5px);opacity:1;}
+  }
+
+  .ai-warn{
+    padding:9px 14px;
+    background:rgba(232,163,61,.12);
+    border-top:1px solid rgba(232,163,61,.28);
+    font-size:11px;
+    color:var(--warn);
+    line-height:1.5;
+    flex:0 0 auto;
+  }
+
+  .ai-input-wrap{
+    padding:12px 12px 12px 14px;
+    border-top:1px solid var(--border);
+    display:flex;
+    gap:8px;
+    flex:0 0 auto;
+    background:var(--bar);
+    align-items:flex-end;
+  }
+  .ai-input{
+    flex:1 1 auto;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:10px 16px;
+    color:var(--text);
+    font-size:13px;
+    outline:none;
+    font-family:inherit;
+    resize:none;
+    min-height:40px;
+    max-height:120px;
+    line-height:1.4;
+  }
+  .ai-input:focus{border-color:var(--accent);}
+  .ai-send{
+    width:40px;height:40px;
+    border-radius:50%;
+    background:var(--accent);
+    border:0;
+    color:#fff;
+    cursor:pointer;
+    display:grid;
+    place-items:center;
+    flex:0 0 auto;
+    transition:background .12s, transform .12s;
+  }
+  .ai-send:hover{background:var(--accent-hover);}
+  .ai-send:active{transform:scale(.94);}
+  .ai-send:disabled{opacity:.4;cursor:not-allowed;}
+  .ai-send svg{width:17px;height:17px;}
+
+  @media (max-width:820px){
+    .ai-head{padding:16px 16px 14px;}
+    .ai-head h3{font-size:15.5px;}
+    .ai-quick-actions{padding:10px 12px;gap:6px;}
+    .ai-quick-btn{font-size:11.5px;padding:6px 11px;}
+    .ai-messages{padding:14px;gap:11px;}
+    .ai-msg .ai-bubble{font-size:13.5px;padding:11px 14px;}
+    .ai-input-wrap{padding:10px 10px 14px 12px;}
+    .ai-input{font-size:16px !important;padding:11px 14px;min-height:44px;}
+    .ai-send{width:44px;height:44px;}
+    .ai-warn{font-size:11.5px;padding:10px 14px;}
+  }
 </style>
 </head>
 <body class="no-doc">
@@ -1672,6 +2112,20 @@
 
     <div class="menubar-right">
       <span id="doc-title">No document open</span>
+      <div class="tts-quick-pill" id="ttsQuickPill" title="TTS Media Controls">
+        <span class="tqp-status" id="tqpStatus"></span>
+        <button class="tqp-btn" id="tqpPlay" aria-label="Play/Pause TTS" title="Play / Pause TTS">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="6 3 20 12 6 21 6 3"/>
+          </svg>
+        </button>
+        <button class="tqp-btn" id="tqpMute" aria-label="Mute" title="Mute / Unmute">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          </svg>
+        </button>
+      </div>
       <div class="server-pill" id="serverPill" title="Click to configure server">
         <span class="dot" id="serverDot"></span>
         <span id="serverLabel">localhost:8080</span>
@@ -1845,6 +2299,49 @@
           <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2 2 2 0 1 1-4 0 1.7 1.7 0 0 0-2.9-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 4.6 15a2 2 0 1 1 0-4 1.7 1.7 0 0 0 1.2-2.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 11 4.6a2 2 0 1 1 4 0 1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0 1.2 2.9 2 2 0 1 1 0 4 1.7 1.7 0 0 0-1.5 1z"/>
         </svg><span>Server</span>
       </button>
+    </div>
+
+    <div class="tb-sep"></div>
+
+    <div class="tb-group">
+      <div class="tts-media-panel" id="ttsMediaPanel" title="TTS Note · Notification · Media · Sound Control">
+        <button class="tmp-btn" id="tmpPlay" aria-label="Play/Pause TTS" title="Play / Pause TTS">
+          <svg id="tmpPlayIcon" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="6 3 20 12 6 21 6 3"/>
+          </svg>
+        </button>
+        <button class="tmp-btn" id="tmpStop" aria-label="Stop TTS" title="Stop TTS">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <rect x="6" y="6" width="12" height="12" rx="1.5"/>
+          </svg>
+        </button>
+        <button class="tmp-btn" id="tmpMute" aria-label="Mute" title="Mute / Unmute media sound">
+          <svg id="tmpMuteIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+          </svg>
+        </button>
+        <div class="tmp-vol-wrap">
+          <input type="range" class="tmp-vol-slider" id="tmpVolume" min="0" max="100" value="100" title="Volume" aria-label="Volume" />
+        </div>
+        <button class="tmp-btn" id="tmpBell" aria-label="Notification sounds" title="Notification sounds">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+        </button>
+        <button class="tmp-btn tmp-note-btn" id="tmpNote" aria-label="TTS note" title="TTS reading note / bookmark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <path d="M14 2v6h6"/>
+            <path d="M9 15h6"/>
+            <path d="M9 11h3"/>
+          </svg>
+          <span class="tmp-note-badge" id="tmpNoteBadge">0</span>
+        </button>
+        <span class="tmp-status" id="tmpStatus" title="TTS status"></span>
+      </div>
     </div>
   </div>
 
@@ -2135,6 +2632,44 @@
   </div>
   <div class="dict-body" id="dictBody"></div>
 </div>
+
+<!-- ============================================================
+     HEX — AI ASSISTANT (Stirling PDF analysis + chat)
+     ============================================================ -->
+<button class="ai-fab" id="aiFab" aria-label="AI Assistant" title="AI Assistant — PDF analysis & chat">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2a9 9 0 0 1 9 9c0 4-2 7-5 8v3l-3-2h-1a9 9 0 0 1-9-9 9 9 0 0 1 9-9z"/>
+    <path d="M9 11h.01"/><path d="M12 11h.01"/><path d="M15 11h.01"/>
+  </svg>
+</button>
+
+<div class="ai-backdrop" id="aiBackdrop"></div>
+<aside class="ai-panel" id="aiPanel" aria-hidden="true" aria-label="AI PDF Assistant">
+  <div class="ai-head">
+    <div class="ai-head-text">
+      <h3>AI PDF Assistant</h3>
+      <span class="ai-sub" id="aiSub">Ask anything about your PDF · no API key required</span>
+    </div>
+    <button class="ai-close" id="aiClose" aria-label="Close">✕</button>
+  </div>
+  <div class="ai-quick-actions" id="aiQuickActions">
+    <button class="ai-quick-btn" data-q="Summarize this document in 3 bullet points.">Summarize</button>
+    <button class="ai-quick-btn" data-q="What are the key topics covered in this document?">Key topics</button>
+    <button class="ai-quick-btn" data-q="List any names, dates, or numbers mentioned in this document.">Entities</button>
+    <button class="ai-quick-btn" data-q="What are the main conclusions or takeaways?">Takeaways</button>
+  </div>
+  <div class="ai-messages" id="aiMessages"></div>
+  <div class="ai-warn" id="aiWarn" style="display:none;"></div>
+  <div class="ai-input-wrap">
+    <textarea class="ai-input" id="aiInput" rows="1" placeholder="Ask about this PDF…" autocomplete="off"></textarea>
+    <button class="ai-send" id="aiSend" aria-label="Send" title="Send">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m22 2-7 20-4-9-9-4z"/>
+        <path d="M22 2 11 13"/>
+      </svg>
+    </button>
+  </div>
+</aside>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js"></script>
@@ -5081,7 +5616,7 @@
 <!-- ============================================================================
      HEX TTS — Speech Engine, Text Layer, Voice Picker, Dictionary
      Adds auto-detected "read from any word" playback to HEX — PDF Studio
-     Now with HLS streaming playback support + Music Note Notifications.
+     Now with HLS streaming playback support.
      ============================================================================ -->
 <script>
 (function () {
@@ -5124,9 +5659,7 @@
     timer: null,
     watchdog: null,
     pauseTimer: null,
-    boundaryWorked: false,
-    lastStatus: "idle",     // For transition detection (music note notification)
-    notifiedTrack: null     // Dedup key for notifications
+    boundaryWorked: false
   };
 
   // HLS engine configuration
@@ -5137,8 +5670,7 @@
     audio: null,
     hlsWordsEstimator: null,
     hlsWordCursor: 0,
-    hlsWordsPerPage: null,
-    _currentHlsPage: 0
+    hlsWordsPerPage: null
   };
 
   var voicesState = {
@@ -5221,71 +5753,6 @@
     var m = Math.floor(sec / 60);
     var s = Math.floor(sec % 60);
     return m + ":" + (s < 10 ? "0" : "") + s;
-  }
-
-  /* ============================================================
-     MUSIC NOTE NOTIFICATION
-     ============================================================ */
-  // ── Show Music Note Notification ──
-  function showMusicNotification(track) {
-    try {
-      if (!('Notification' in window)) {
-        console.warn('Notifications API not supported');
-        return;
-      }
-      if (Notification.permission === 'denied') {
-        console.warn('Notification permission denied');
-        return;
-      }
-      if (Notification.permission === 'granted') {
-        const title = track.name || 'Now Playing';
-        const options = {
-          body: `🎵 ${track.formatDesc || 'Audio'} · ${track.format ? track.format.toUpperCase() : ''}`,
-          icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="%234b6bfb"/><text x="50" y="60" text-anchor="middle" font-size="50" fill="white">🎵</text></svg>',
-          badge: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="%234b6bfb"/><text x="50" y="60" text-anchor="middle" font-size="50" fill="white">🎵</text></svg>',
-          tag: 'hex-music-playing',
-          renotify: true,
-          silent: false,
-          vibrate: [200, 100, 200],
-          requireInteraction: false,
-          data: { trackId: track.id, trackName: track.name }
-        };
-        const notification = new Notification(title, options);
-        setTimeout(() => notification.close(), 4000);
-      } else if (Notification.permission === 'default') {
-        Notification.requestPermission().then(perm => {
-          if (perm === 'granted') {
-            showMusicNotification(track);
-          }
-        });
-      }
-    } catch (e) { console.warn('Notification error:', e); }
-  }
-
-  function buildTrackInfo() {
-    var fileName = 'Document';
-    try {
-      if (window.HEXStudio && window.HEXStudio.getFileName) {
-        fileName = window.HEXStudio.getFileName() || 'Document';
-      }
-    } catch (e) {}
-    var pageNum = state.lastRenderedPage || 1;
-    var totalPages = (state.pdfData && state.pdfData.pages) ? state.pdfData.pages.length : 1;
-    var isHls = hlsConfig.engine === 'hls';
-    return {
-      id: 'hex-tts:' + fileName + ':' + pageNum,
-      name: 'Reading: ' + fileName + ' — Page ' + pageNum + ' of ' + totalPages,
-      format: isHls ? 'hls' : 'tts',
-      formatDesc: isHls ? 'HLS Audio Stream' : 'Text-to-Speech'
-    };
-  }
-
-  function firePlaybackNotification() {
-    if (!('Notification' in window)) return;
-    var track = buildTrackInfo();
-    if (speech.notifiedTrack === track.id) return;
-    speech.notifiedTrack = track.id;
-    showMusicNotification(track);
   }
 
   /* ============================================================
@@ -6190,7 +6657,6 @@
     speech.status = "idle";
     speech.utterance = null;
     speech.subChunks = [];
-    speech.notifiedTrack = null;
     state.currentWordIndex = -1;
     clearAllHighlights();
     updatePlayUI();
@@ -6343,8 +6809,6 @@
       return;
     }
 
-    hlsConfig._currentHlsPage = pageNum;
-
     var audio = ensureHlsAudio();
 
     // Tear down previous stream
@@ -6366,13 +6830,6 @@
     updatePlayUI();
     if (dom.ttsHlsCur) dom.ttsHlsCur.textContent = "0:00";
     if (dom.ttsHlsFill) dom.ttsHlsFill.style.width = "0%";
-
-    // Fire music note notification for the new HLS page/stream
-    setTimeout(function () {
-      if (gen === speech.gen && (speech.status === "playing" || speech.status === "paused")) {
-        firePlaybackNotification();
-      }
-    }, 250);
 
     var HlsCtor = window.Hls;
     var isSafariNative = !!audio.canPlayType("application/vnd.apple.mpegurl");
@@ -6511,12 +6968,6 @@
         ? (hlsConfig.audio ? (hlsConfig.audio.playbackRate || 1).toFixed(2).replace(/\.?0+$/, "") + "×" : "1×")
         : speech.rate.toFixed(2).replace(/\.?0+$/, "") + "×";
     }
-
-    // ── Music Note Notification: fire on transition to "playing" ──
-    if (speech.status === "playing" && speech.lastStatus !== "playing") {
-      firePlaybackNotification();
-    }
-    speech.lastStatus = speech.status;
   }
 
   function updateProgressUI() {
@@ -6791,7 +7242,6 @@
       state.extractPromise = null;
       state.currentWordIndex = -1;
       state.userScrolledAway = false;
-      speech.notifiedTrack = null;
       showDock();
       updatePlayUI();
       updateProgressUI();
@@ -6818,7 +7268,6 @@
       state.idMap = null;
       state.extractPromise = null;
       state.lastRenderedPage = 0;
-      speech.notifiedTrack = null;
       var tl = dom.pageWrap ? dom.pageWrap.querySelector(".textLayer") : null;
       if (tl && tl.parentNode) tl.parentNode.removeChild(tl);
     });
@@ -6879,6 +7328,871 @@
     initHooks();
     updatePlayUI();
     updateProgressUI();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+})();
+</script>
+
+<!-- ============================================================================
+     HEX — TTS NOTE / MEDIA / SOUND CONTROL PANEL + AI PDF ASSISTANT
+     Adds a compact media panel to the header for controlling TTS playback,
+     volume, notification sounds, and reading notes — plus a Stirling PDF
+     powered AI chat panel using free endpoints (no API key required).
+     ============================================================================ -->
+<script>
+(function () {
+  "use strict";
+
+  /* ============================================================
+     CONSTANTS & STATE
+     ============================================================ */
+  var STORAGE_VOLUME = "hex-user-volume";
+  var STORAGE_MUTED = "hex-user-muted";
+  var STORAGE_NOTIF = "hex-notif-sounds";
+  var STORAGE_NOTE_BOOKMARK = "hex-tts-note-bookmark";
+  var AI_ENDPOINTS = [
+    "https://text.pollinations.ai/openai",
+    "https://text.pollinations.ai/"
+  ];
+
+  var mediaState = {
+    volume: parseFloat(localStorage.getItem(STORAGE_VOLUME) || "1"),
+    muted: localStorage.getItem(STORAGE_MUTED) === "1",
+    notifSounds: localStorage.getItem(STORAGE_NOTIF) !== "0",
+    noteCount: 0
+  };
+  if (isNaN(mediaState.volume)) mediaState.volume = 1;
+  mediaState.volume = Math.max(0, Math.min(1, mediaState.volume));
+
+  var aiState = {
+    messages: [],
+    pdfContext: "",
+    pdfLoaded: false,
+    sending: false,
+    serverUrl: (localStorage.getItem("stirlingServerUrl") || "http://localhost:8080").trim().replace(/\/+$/, ""),
+    welcomeSent: false
+  };
+
+  var audioCtxRef = null;
+
+  /* ============================================================
+     HELPERS
+     ============================================================ */
+  function $id(id) { return document.getElementById(id); }
+
+  function escapeHtml(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c];
+    });
+  }
+
+  function toast(msg, kind, dur) {
+    var host = $id("toasts");
+    if (!host) return;
+    var t = document.createElement("div");
+    t.className = "toast " + (kind || "");
+    t.textContent = msg;
+    host.appendChild(t);
+    setTimeout(function () {
+      t.style.transition = "opacity .25s, transform .25s";
+      t.style.opacity = "0";
+      t.style.transform = "translateX(20px)";
+      setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 260);
+    }, dur || 3200);
+  }
+
+  /* ============================================================
+     WEB AUDIO NOTIFICATION TONES (no dependencies)
+     ============================================================ */
+  function getAudioCtx() {
+    if (audioCtxRef) return audioCtxRef;
+    try {
+      var Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return null;
+      audioCtxRef = new Ctx();
+      return audioCtxRef;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function playNotifTone(kind) {
+    if (!mediaState.notifSounds) return;
+    var ctx = getAudioCtx();
+    if (!ctx) return;
+    if (ctx.state === "suspended") {
+      try { ctx.resume(); } catch (e) {}
+    }
+    var now = ctx.currentTime;
+    var freq1 = 660, freq2 = 880;
+    if (kind === "error") { freq1 = 330; freq2 = 220; }
+    else if (kind === "warn") { freq1 = 440; freq2 = 550; }
+    else if (kind === "ok") { freq1 = 880; freq2 = 1320; }
+    else { freq1 = 660; freq2 = 880; }
+
+    var vol = mediaState.muted ? 0 : mediaState.volume * 0.14;
+    if (vol <= 0) return;
+
+    [freq1, freq2].forEach(function (f, i) {
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(f, now + i * 0.08);
+      gain.gain.setValueAtTime(0, now + i * 0.08);
+      gain.gain.linearRampToValueAtTime(vol, now + i * 0.08 + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.08 + 0.16);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now + i * 0.08);
+      osc.stop(now + i * 0.08 + 0.18);
+    });
+  }
+
+  // Wrap the global HEXToast so every system toast triggers a subtle tone
+  // (respects user toggle; only positive/negative/warn tones play)
+  function wrapGlobalToast() {
+    if (!window.HEXToast) return;
+    var orig = window.HEXToast;
+    window.HEXToast = function (msg, kind, dur) {
+      if (kind === "err") playNotifTone("error");
+      else if (kind === "warn") playNotifTone("warn");
+      else if (kind === "ok") playNotifTone("ok");
+      return orig(msg, kind, dur);
+    };
+  }
+
+  /* ============================================================
+     VOLUME PATCHING (Web Speech + HLS audio)
+     ============================================================ */
+  function effectiveVolume() {
+    return mediaState.muted ? 0 : mediaState.volume;
+  }
+
+  function patchSpeechSynthesisVolume() {
+    if (!window.speechSynthesis) return;
+    var synth = window.speechSynthesis;
+    if (synth.__hexVolumePatched) return;
+    var origSpeak = synth.speak.bind(synth);
+    synth.speak = function (utterance) {
+      try {
+        if (utterance && !utterance.__hexVolPatched) {
+          var base = (typeof utterance.volume === "number") ? utterance.volume : 1;
+          utterance.volume = Math.max(0, Math.min(1, base * effectiveVolume()));
+          utterance.__hexVolPatched = true;
+        }
+      } catch (e) {}
+      return origSpeak(utterance);
+    };
+    synth.__hexVolumePatched = true;
+  }
+
+  function patchAudioConstructor() {
+    if (!window.Audio || window.Audio.__hexPatched) return;
+    var OrigAudio = window.Audio;
+
+    function PatchedAudio(src) {
+      var a = new OrigAudio(src);
+      try { a.volume = Math.max(0, Math.min(1, effectiveVolume())); } catch (e) {}
+      window.addEventListener("hex:volumeChange", function () {
+        try { a.volume = Math.max(0, Math.min(1, effectiveVolume())); } catch (e) {}
+      });
+      window.addEventListener("hex:muteChange", function () {
+        try { a.volume = Math.max(0, Math.min(1, effectiveVolume())); } catch (e) {}
+      });
+      return a;
+    }
+    PatchedAudio.prototype = OrigAudio.prototype;
+    try {
+      Object.keys(OrigAudio).forEach(function (k) {
+        try { PatchedAudio[k] = OrigAudio[k]; } catch (e) {}
+      });
+    } catch (e) {}
+    PatchedAudio.__hexPatched = true;
+    window.Audio = PatchedAudio;
+  }
+
+  function broadcastVolumeChange() {
+    try {
+      window.dispatchEvent(new CustomEvent("hex:volumeChange"));
+      window.dispatchEvent(new CustomEvent("hex:muteChange"));
+    } catch (e) {}
+  }
+
+  /* ============================================================
+     MEDIA PANEL UI SYNC
+     ============================================================ */
+  function updateMediaPanelUI() {
+    var statusEl = $id("tmpStatus");
+    var playIcon = $id("tmpPlayIcon");
+    var muteIcon = $id("tmpMuteIcon");
+    var volSlider = $id("tmpVolume");
+    var bellBtn = $id("tmpBell");
+    var quickStatus = $id("tqpStatus");
+    var quickPlayIcon = $id("tqpPlay");
+
+    var dockStatus = $id("ttsStatus");
+    var isPlaying = !!(dockStatus && dockStatus.classList.contains("playing"));
+    var isPaused = !!(dockStatus && dockStatus.classList.contains("paused"));
+
+    if (statusEl) {
+      statusEl.className = "tmp-status" + (isPlaying ? " on" : (isPaused ? " paused" : ""));
+    }
+    if (quickStatus) {
+      quickStatus.className = "tqp-status" + (isPlaying ? " on" : (isPaused ? " paused" : ""));
+    }
+    if (playIcon) {
+      playIcon.innerHTML = isPlaying
+        ? '<rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>'
+        : '<polygon points="6 3 20 12 6 21 6 3"/>';
+    }
+    if (quickPlayIcon) {
+      quickPlayIcon.innerHTML = isPlaying
+        ? '<rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>'
+        : '<polygon points="6 3 20 12 6 21 6 3"/>';
+    }
+    if (muteIcon) {
+      muteIcon.innerHTML = mediaState.muted
+        ? '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>'
+        : '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>';
+    }
+    if (volSlider) {
+      volSlider.value = String(Math.round(mediaState.volume * 100));
+      volSlider.style.opacity = mediaState.muted ? "0.4" : "1";
+    }
+    if (bellBtn) {
+      bellBtn.classList.toggle("active", mediaState.notifSounds);
+      bellBtn.style.opacity = mediaState.notifSounds ? "1" : "0.55";
+    }
+    updateNoteBadge();
+  }
+
+  function updateNoteBadge() {
+    var badge = $id("tmpNoteBadge");
+    if (!badge) return;
+    var count = 0;
+    try {
+      var raw = localStorage.getItem(STORAGE_NOTE_BOOKMARK);
+      if (raw) {
+        var arr = JSON.parse(raw);
+        if (Array.isArray(arr)) count = arr.length;
+      }
+    } catch (e) {}
+    mediaState.noteCount = count;
+    if (count > 0) {
+      badge.textContent = String(count);
+      badge.classList.add("show");
+    } else {
+      badge.classList.remove("show");
+    }
+  }
+
+  function triggerPlayPause() {
+    var btn = $id("ttsPlayBtn");
+    if (btn) {
+      btn.click();
+    } else {
+      // fallback: HLS safe no-op
+      toast("TTS not ready yet — open a PDF first.", "warn");
+    }
+    setTimeout(updateMediaPanelUI, 120);
+  }
+
+  function triggerStop() {
+    var btn = $id("ttsStopBtn");
+    if (btn && btn.style.display !== "none") {
+      btn.click();
+    } else {
+      try { window.speechSynthesis.cancel(); } catch (e) {}
+      var dock = $id("ttsDock");
+      if (dock) {
+        // best effort: fire stop via custom event
+        window.dispatchEvent(new CustomEvent("hex:ttsRequestStop"));
+      }
+    }
+    setTimeout(updateMediaPanelUI, 120);
+  }
+
+  function triggerMuteToggle() {
+    mediaState.muted = !mediaState.muted;
+    try { localStorage.setItem(STORAGE_MUTED, mediaState.muted ? "1" : "0"); } catch (e) {}
+    broadcastVolumeChange();
+    updateMediaPanelUI();
+    toast(mediaState.muted ? "Audio muted" : "Audio unmuted", "ok", 1400);
+  }
+
+  function triggerVolumeChange(pct) {
+    var v = Math.max(0, Math.min(100, pct)) / 100;
+    mediaState.volume = v;
+    try { localStorage.setItem(STORAGE_VOLUME, String(v)); } catch (e) {}
+    if (v > 0 && mediaState.muted) {
+      mediaState.muted = false;
+      try { localStorage.setItem(STORAGE_MUTED, "0"); } catch (e) {}
+    }
+    broadcastVolumeChange();
+    updateMediaPanelUI();
+  }
+
+  function triggerNotifToggle() {
+    mediaState.notifSounds = !mediaState.notifSounds;
+    try { localStorage.setItem(STORAGE_NOTIF, mediaState.notifSounds ? "1" : "0"); } catch (e) {}
+    updateMediaPanelUI();
+    if (mediaState.notifSounds) playNotifTone("ok");
+  }
+
+  /* ============================================================
+     TTS NOTE PANEL — simple reading bookmarks stored locally
+     ============================================================ */
+  function openTtsNotePanel() {
+    var modal = window.HEXShowModal;
+    var box = document.createElement("div");
+
+    var info = document.createElement("div");
+    info.className = "hint";
+    info.textContent = "Save your place while the TTS engine reads. Notes are stored in this browser only.";
+    box.appendChild(info);
+
+    var nameField = document.createElement("div");
+    nameField.className = "field";
+    nameField.innerHTML = '<label>TTS Note label</label><input type="text" id="ttsNoteLabel" placeholder="e.g. Chapter 3 — start" autocomplete="off" />';
+    box.appendChild(nameField);
+
+    var pageField = document.createElement("div");
+    pageField.className = "field";
+    pageField.innerHTML = '<label>Page number (leave blank to use current)</label><input type="number" id="ttsNotePage" min="1" placeholder="1" />';
+    box.appendChild(pageField);
+
+    var listWrap = document.createElement("div");
+    listWrap.innerHTML = '<label style="font-size:11.5px;color:var(--text-dim);font-weight:600;">Saved notes</label>';
+    var list = document.createElement("div");
+    list.className = "file-list";
+    list.id = "ttsNoteList";
+    listWrap.appendChild(list);
+    box.appendChild(listWrap);
+
+    function renderList() {
+      var notes = [];
+      try { notes = JSON.parse(localStorage.getItem(STORAGE_NOTE_BOOKMARK) || "[]") || []; } catch (e) {}
+      list.innerHTML = "";
+      if (!notes.length) {
+        var empty = document.createElement("div");
+        empty.className = "hint";
+        empty.style.padding = "6px";
+        empty.textContent = "No notes saved yet.";
+        list.appendChild(empty);
+        return;
+      }
+      notes.forEach(function (n, idx) {
+        var row = document.createElement("div");
+        row.className = "file-row";
+        row.style.cursor = "pointer";
+        var label = document.createElement("span");
+        label.className = "nm";
+        label.textContent = (n.label || "Note") + (n.page ? "  ·  p." + n.page : "");
+        var jump = document.createElement("button");
+        jump.className = "btn ghost";
+        jump.textContent = "Go";
+        jump.style.padding = "2px 9px";
+        jump.style.fontSize = "11px";
+        jump.addEventListener("click", function (e) {
+          e.stopPropagation();
+          if (n.page) {
+            var pi = $id("pageInput");
+            if (pi) {
+              pi.value = String(n.page);
+              pi.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
+            }
+            if (window.HEXCloseModal) window.HEXCloseModal();
+          }
+        });
+        var del = document.createElement("button");
+        del.className = "btn ghost";
+        del.textContent = "✕";
+        del.style.padding = "2px 8px";
+        del.style.fontSize = "11px";
+        del.addEventListener("click", function (e) {
+          e.stopPropagation();
+          notes.splice(idx, 1);
+          try { localStorage.setItem(STORAGE_NOTE_BOOKMARK, JSON.stringify(notes)); } catch (er) {}
+          renderList();
+          updateNoteBadge();
+        });
+        row.appendChild(label);
+        row.appendChild(jump);
+        row.appendChild(del);
+        list.appendChild(row);
+      });
+    }
+    renderList();
+
+    if (!modal) return;
+
+    modal({
+      title: "TTS Note / Reading Bookmark",
+      bodyNode: box,
+      okText: "Save Note",
+      wide: true,
+      onOk: function () {
+        var labelInput = $id("ttsNoteLabel");
+        var pageInput = $id("ttsNotePage");
+        var label = (labelInput && labelInput.value.trim()) || "Reading note";
+        var page = parseInt((pageInput && pageInput.value) || "", 10);
+        if (isNaN(page)) {
+          var cur = $id("pageInput");
+          page = cur ? parseInt(cur.value, 10) || 1 : 1;
+        }
+        var notes = [];
+        try { notes = JSON.parse(localStorage.getItem(STORAGE_NOTE_BOOKMARK) || "[]") || []; } catch (e) {}
+        notes.push({ label: label, page: page, savedAt: Date.now() });
+        try { localStorage.setItem(STORAGE_NOTE_BOOKMARK, JSON.stringify(notes)); } catch (e) {}
+        updateNoteBadge();
+        playNotifTone("ok");
+        toast("Note saved: " + label + " (page " + page + ")", "ok", 2500);
+        return true;
+      }
+    });
+  }
+
+  /* ============================================================
+     AI ASSISTANT — PDF analysis + chat (no API key)
+     ============================================================ */
+  function showAIPanel() {
+    var panel = $id("aiPanel");
+    var backdrop = $id("aiBackdrop");
+    if (!panel) return;
+    panel.classList.add("open");
+    panel.setAttribute("aria-hidden", "false");
+    if (backdrop) backdrop.classList.add("open");
+
+    if (!aiState.welcomeSent) {
+      aiState.welcomeSent = true;
+      addAIMessage(
+        "assistant",
+        "Hi! I'm your AI PDF assistant.\n\n" +
+        "• Open a PDF and I'll extract its text automatically\n" +
+        "• Ask for summaries, key topics, named entities, or specific questions\n" +
+        "• No API key required — I use a free service that may take a moment\n\n" +
+        "Try one of the quick actions above, or type a question below."
+      );
+    }
+
+    // Refresh server URL each time (in case user changed it)
+    aiState.serverUrl = (localStorage.getItem("stirlingServerUrl") || "http://localhost:8080").trim().replace(/\/+$/, "");
+
+    // Kick off PDF text extraction
+    if (!aiState.pdfLoaded) {
+      extractPdfForAI();
+    }
+
+    setTimeout(function () {
+      var inp = $id("aiInput");
+      if (inp && !window.matchMedia("(max-width:820px)").matches) inp.focus();
+    }, 220);
+  }
+
+  function hideAIPanel() {
+    var panel = $id("aiPanel");
+    var backdrop = $id("aiBackdrop");
+    if (panel) {
+      panel.classList.remove("open");
+      panel.setAttribute("aria-hidden", "true");
+    }
+    if (backdrop) backdrop.classList.remove("open");
+  }
+
+  function setAISub(text) {
+    var sub = $id("aiSub");
+    if (sub) sub.textContent = text;
+  }
+
+  function setAIWarn(text) {
+    var w = $id("aiWarn");
+    if (!w) return;
+    if (text) {
+      w.textContent = text;
+      w.style.display = "block";
+    } else {
+      w.textContent = "";
+      w.style.display = "none";
+    }
+  }
+
+  async function extractPdfForAI() {
+    setAIWarn("");
+    var pdfDoc = window.HEXStudio && window.HEXStudio.getPdfDoc ? window.HEXStudio.getPdfDoc() : null;
+    var pdfBytes = window.HEXStudio && window.HEXStudio.getPdfBytes ? window.HEXStudio.getPdfBytes() : null;
+
+    if (!pdfDoc && !pdfBytes) {
+      setAISub("No PDF loaded · general chat mode");
+      setAIWarn("No PDF open. Ask general questions or open a PDF for document-specific answers.");
+      return;
+    }
+
+    setAISub("Extracting text from PDF…");
+
+    // 1) Client-side extraction via PDF.js (fastest, no server needed)
+    if (pdfDoc) {
+      try {
+        var allText = [];
+        var maxPages = Math.min(pdfDoc.numPages, 60);
+        for (var p = 1; p <= maxPages; p++) {
+          var page = await pdfDoc.getPage(p);
+          var content = await page.getTextContent();
+          var words = (content.items || []).map(function (it) { return it.str || ""; }).join(" ");
+          allText.push(words);
+        }
+        aiState.pdfContext = allText.join("\n\n").trim();
+        aiState.pdfLoaded = true;
+
+        if (!aiState.pdfContext) {
+          setAIWarn("This PDF has no extractable text (it may be a scan). Try running OCR from the Tools panel first.");
+          setAISub("PDF has no text layer · ask general questions");
+          return;
+        }
+
+        var wc = aiState.pdfContext.split(/\s+/).filter(Boolean).length;
+        setAISub("PDF ready · " + wc.toLocaleString() + " words · " + pdfDoc.numPages + " page" + (pdfDoc.numPages === 1 ? "" : "s"));
+        if (pdfDoc.numPages > maxPages) {
+          setAIWarn("Note: only the first " + maxPages + " pages were extracted for context.");
+        }
+        playNotifTone("ok");
+        return;
+      } catch (e) {
+        console.warn("Client PDF extraction failed:", e);
+      }
+    }
+
+    // 2) Fallback via Stirling PDF server text extraction
+    if (pdfBytes && aiState.serverUrl) {
+      try {
+        var fd = new FormData();
+        fd.append("fileInput", new Blob([pdfBytes], { type: "application/pdf" }), "document.pdf");
+        var res = await fetch(aiState.serverUrl + "/api/v1/convert/pdf/text", {
+          method: "POST",
+          body: fd,
+          mode: "cors"
+        });
+        if (res.ok) {
+          var text = await res.text();
+          aiState.pdfContext = (text || "").trim();
+          aiState.pdfLoaded = true;
+          var wc2 = aiState.pdfContext.split(/\s+/).filter(Boolean).length;
+          setAISub("PDF ready (server) · " + wc2.toLocaleString() + " words");
+          if (!aiState.pdfContext) {
+            setAIWarn("Server returned empty text — this PDF likely has no text layer.");
+          }
+          playNotifTone("ok");
+          return;
+        }
+        throw new Error("HTTP " + res.status);
+      } catch (e) {
+        console.warn("Server PDF extraction failed:", e);
+      }
+    }
+
+    setAIWarn("Could not extract PDF text. You can still ask general questions.");
+    setAISub("Extraction failed · general chat mode");
+    playNotifTone("warn");
+  }
+
+  function addAIMessage(role, content) {
+    var host = $id("aiMessages");
+    if (!host) return null;
+    var msg = document.createElement("div");
+    msg.className = "ai-msg " + role;
+
+    var avatar = document.createElement("div");
+    avatar.className = "ai-avatar";
+    avatar.textContent = role === "user" ? "You" : "AI";
+
+    var bubble = document.createElement("div");
+    bubble.className = "ai-bubble";
+    bubble.textContent = content;
+
+    msg.appendChild(avatar);
+    msg.appendChild(bubble);
+    host.appendChild(msg);
+    host.scrollTop = host.scrollHeight;
+    return bubble;
+  }
+
+  function addAITyping() {
+    var host = $id("aiMessages");
+    if (!host) return;
+    var msg = document.createElement("div");
+    msg.className = "ai-msg assistant";
+    msg.id = "aiTypingMsg";
+    msg.innerHTML =
+      '<div class="ai-avatar">AI</div>' +
+      '<div class="ai-bubble"><div class="ai-typing"><span></span><span></span><span></span></div></div>';
+    host.appendChild(msg);
+    host.scrollTop = host.scrollHeight;
+  }
+
+  function removeAITyping() {
+    var t = $id("aiTypingMsg");
+    if (t && t.parentNode) t.parentNode.removeChild(t);
+  }
+
+  async function sendAIMessage(userText) {
+    if (!userText || !userText.trim() || aiState.sending) return;
+
+    aiState.sending = true;
+    var sendBtn = $id("aiSend");
+    var input = $id("aiInput");
+    if (sendBtn) sendBtn.disabled = true;
+    if (input) input.value = "";
+
+    addAIMessage("user", userText.trim());
+    addAITyping();
+
+    // Make sure we have context
+    if (!aiState.pdfLoaded) {
+      try { await extractPdfForAI(); } catch (e) {}
+    }
+
+    var systemPrompt =
+      "You are a precise and helpful PDF assistant integrated into a PDF reader application. " +
+      "Answer questions about the provided document accurately and concisely. " +
+      "Use plain text (no markdown tables). If a question cannot be answered from the document, say so clearly. " +
+      "Prefer bullet points for lists and keep responses focused.";
+
+    var messages = [{ role: "system", content: systemPrompt }];
+
+    // Include a bounded slice of recent history
+    var history = aiState.messages.slice(-6);
+    history.forEach(function (m) { messages.push(m); });
+
+    var contextBlock = "";
+    if (aiState.pdfContext) {
+      var maxChars = 9000;
+      var ctx = aiState.pdfContext;
+      if (ctx.length > maxChars) {
+        ctx = ctx.slice(0, maxChars) + "\n\n[… document continues but was truncated for context …]";
+      }
+      contextBlock = "[PDF CONTENT]\n" + ctx + "\n[END PDF CONTENT]\n\n";
+    }
+
+    messages.push({
+      role: "user",
+      content: contextBlock + "Question: " + userText.trim()
+    });
+
+    // Record user question (without the repeated context)
+    aiState.messages.push({ role: "user", content: userText.trim() });
+
+    try {
+      var reply = await callAI(messages);
+      removeAITyping();
+      addAIMessage("assistant", reply);
+      aiState.messages.push({ role: "assistant", content: reply });
+      playNotifTone("ok");
+    } catch (err) {
+      removeAITyping();
+      addAIMessage("assistant", "⚠️ I couldn't get a response.\n\nReason: " + (err.message || "unknown error") + "\n\nPlease try again in a moment.");
+      playNotifTone("error");
+    } finally {
+      aiState.sending = false;
+      if (sendBtn) sendBtn.disabled = false;
+    }
+  }
+
+  async function callAI(messages) {
+    var lastErr = null;
+
+    // Try the OpenAI-compatible endpoint first
+    try {
+      var res = await fetch(AI_ENDPOINTS[0], {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "openai",
+          messages: messages,
+          temperature: 0.5
+        })
+      });
+      if (res.ok) {
+        var text = await res.text();
+        try {
+          var data = JSON.parse(text);
+          if (data && data.choices && data.choices[0] && data.choices[0].message) {
+            return String(data.choices[0].message.content || "").trim();
+          }
+        } catch (e) {
+          // Non-JSON text response – return raw if it looks usable
+          if (text && text.length > 0 && text.length < 20000) return text.trim();
+        }
+        throw new Error("Unexpected response from AI service");
+      }
+      lastErr = new Error("HTTP " + res.status);
+    } catch (e) {
+      lastErr = e;
+    }
+
+    // Fallback to messages-array endpoint
+    try {
+      var res2 = await fetch(AI_ENDPOINTS[1], {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: messages,
+          model: "openai"
+        })
+      });
+      if (res2.ok) {
+        var t2 = await res2.text();
+        if (t2 && t2.trim().length > 0) return t2.trim();
+      }
+      lastErr = new Error("Fallback HTTP " + res2.status);
+    } catch (e) {
+      lastErr = e;
+    }
+
+    throw lastErr || new Error("All AI endpoints failed");
+  }
+
+  function initAIAssistant() {
+    var fab = $id("aiFab");
+    if (fab) fab.addEventListener("click", showAIPanel);
+
+    var close = $id("aiClose");
+    if (close) close.addEventListener("click", hideAIPanel);
+
+    var backdrop = $id("aiBackdrop");
+    if (backdrop) backdrop.addEventListener("click", hideAIPanel);
+
+    var send = $id("aiSend");
+    var input = $id("aiInput");
+
+    if (send) {
+      send.addEventListener("click", function () {
+        var val = input ? input.value : "";
+        sendAIMessage(val);
+      });
+    }
+
+    if (input) {
+      input.addEventListener("input", function () {
+        input.style.height = "auto";
+        input.style.height = Math.min(120, input.scrollHeight) + "px";
+      });
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          sendAIMessage(input.value);
+        }
+      });
+    }
+
+    document.querySelectorAll(".ai-quick-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var q = btn.getAttribute("data-q") || "";
+        if (!q) return;
+        sendAIMessage(q);
+      });
+    });
+
+    // Reset AI state when a new document is loaded
+    window.addEventListener("hex:docLoaded", function () {
+      aiState.pdfLoaded = false;
+      aiState.pdfContext = "";
+      aiState.messages = [];
+      var host = $id("aiMessages");
+      if (host) host.innerHTML = "";
+      setAISub("Ready · ask anything about your PDF");
+      setAIWarn("");
+      playNotifTone("info");
+      // If the panel is open, start extraction right away
+      var panel = $id("aiPanel");
+      if (panel && panel.classList.contains("open")) {
+        extractPdfForAI();
+      }
+    });
+
+    window.addEventListener("hex:docClosed", function () {
+      aiState.pdfLoaded = false;
+      aiState.pdfContext = "";
+      aiState.messages = [];
+      var host = $id("aiMessages");
+      if (host) host.innerHTML = "";
+      setAISub("Ask anything about your PDF · no API key required");
+      setAIWarn("");
+    });
+  }
+
+  /* ============================================================
+     WIRE UP THE MEDIA PANEL
+     ============================================================ */
+  function initMediaPanel() {
+    // Toolbar media panel
+    var tmpPlay = $id("tmpPlay");
+    if (tmpPlay) tmpPlay.addEventListener("click", triggerPlayPause);
+
+    var tmpStop = $id("tmpStop");
+    if (tmpStop) tmpStop.addEventListener("click", triggerStop);
+
+    var tmpMute = $id("tmpMute");
+    if (tmpMute) tmpMute.addEventListener("click", triggerMuteToggle);
+
+    var tmpVolume = $id("tmpVolume");
+    if (tmpVolume) {
+      tmpVolume.addEventListener("input", function () {
+        triggerVolumeChange(parseInt(tmpVolume.value, 10) || 0);
+      });
+    }
+
+    var tmpBell = $id("tmpBell");
+    if (tmpBell) tmpBell.addEventListener("click", triggerNotifToggle);
+
+    var tmpNote = $id("tmpNote");
+    if (tmpNote) tmpNote.addEventListener("click", openTtsNotePanel);
+
+    // Quick pill in menubar
+    var tqpPlay = $id("tqpPlay");
+    if (tqpPlay) tqpPlay.addEventListener("click", triggerPlayPause);
+
+    var tqpMute = $id("tqpMute");
+    if (tqpMute) tqpMute.addEventListener("click", triggerMuteToggle);
+
+    var quickPill = $id("ttsQuickPill");
+    if (quickPill) {
+      quickPill.addEventListener("click", function (e) {
+        if (e.target.closest(".tqp-btn")) return;
+        triggerPlayPause();
+      });
+    }
+
+    // Periodically refresh state from TTS dock (dock exposes classes only)
+    setInterval(updateMediaPanelUI, 900);
+
+    // Watch TTS dock status for faster updates
+    var dockStatus = $id("ttsStatus");
+    if (dockStatus && window.MutationObserver) {
+      try {
+        new MutationObserver(updateMediaPanelUI).observe(dockStatus, {
+          attributes: true,
+          attributeFilter: ["class"]
+        });
+      } catch (e) {}
+    }
+
+    updateMediaPanelUI();
+  }
+
+  /* ============================================================
+     BOOT
+     ============================================================ */
+  function boot() {
+    patchSpeechSynthesisVolume();
+    patchAudioConstructor();
+    wrapGlobalToast();
+    initMediaPanel();
+    initAIAssistant();
+    playNotifTone("info");
   }
 
   if (document.readyState === "loading") {
@@ -7002,7 +8316,7 @@ if (document.addEventListener) {
     }, false);
 }else{
     document.attachEvent('oncontextmenu', function() {
-    window.returnValue = false;
+    window.event.returnValue = false;
     });
 }
 </script>
