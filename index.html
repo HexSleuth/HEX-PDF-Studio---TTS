@@ -902,7 +902,7 @@
     box-shadow:0 10px 34px rgba(0,0,0,.6), 0 2px 6px rgba(0,0,0,.4);
     -webkit-backdrop-filter:blur(10px);
     backdrop-filter:blur(10px);
-    max-width:min(720px, calc(100vw - 32px));
+    max-width:min(760px, calc(100vw - 32px));
     opacity:0;
     transition:opacity .22s ease, transform .22s ease;
     pointer-events:none;
@@ -977,6 +977,18 @@
   .tts-dock .dock-stop{
     color:var(--danger);
   }
+  /* New: Backward / Forward skip buttons */
+  .tts-dock .dock-skip{
+    color:var(--text-dim);
+  }
+  .tts-dock .dock-skip:hover{
+    color:#fff;
+    background:var(--bar-2);
+    border-color:var(--border);
+  }
+  .tts-dock .dock-skip svg{
+    width:16px;height:16px;
+  }
   .tts-dock .dock-waveform{
     display:none;
     align-items:flex-end;
@@ -1010,7 +1022,7 @@
       transform:translateY(8px);
       max-width:none;
       padding:6px 8px 6px 6px;
-      gap:6px;
+      gap:4px;
       border-radius:12px;
     }
     .tts-dock.visible{
@@ -1021,6 +1033,7 @@
     .tts-dock .dock-btn.speed-btn{min-width:38px;padding:0 6px;font-size:11px;}
     .tts-dock .dock-progress-text{font-size:10px;}
     .tts-dock .dock-status{font-size:11px;}
+    .tts-dock .dock-skip svg{width:15px;height:15px;}
   }
 
   /* ============================================================
@@ -1700,14 +1713,11 @@
   }
 
   /* ============================================================
-     HEX — AI ASSISTANT (Stirling PDF analysis + chat, no API key)
+     HEX — AI ASSISTANT BUTTON (moved to header — inline)
      ============================================================ */
   .ai-fab{
-    position:fixed;
-    right:calc(16px + var(--safe-right));
-    bottom:calc(22px + var(--safe-bottom) + 66px);
-    width:54px;
-    height:54px;
+    width:34px;
+    height:34px;
     border-radius:50%;
     background:linear-gradient(145deg,#8e44ad,#6c3483);
     border:0;
@@ -1715,22 +1725,33 @@
     display:grid;
     place-items:center;
     cursor:pointer;
-    z-index:70;
-    box-shadow:0 6px 20px rgba(142,68,173,.55), 0 2px 6px rgba(0,0,0,.4);
+    flex:0 0 auto;
+    box-shadow:0 2px 8px rgba(142,68,173,.35);
     transition:transform .15s, box-shadow .15s;
+    padding:0;
+    margin-right:6px;
   }
-  .ai-fab:hover{transform:scale(1.06);box-shadow:0 8px 26px rgba(142,68,173,.7);}
+  .ai-fab:hover{transform:scale(1.08);box-shadow:0 4px 14px rgba(142,68,173,.6);}
   .ai-fab:active{transform:scale(.94);}
-  .ai-fab svg{width:26px;height:26px;}
+  .ai-fab svg{width:16px;height:16px;}
+
+  @media (max-width:1080px){
+    .ai-fab{width:30px;height:30px;margin-right:2px;}
+    .ai-fab svg{width:15px;height:15px;}
+  }
 
   @media (max-width:820px){
     .ai-fab{
-      bottom:calc(var(--mobile-nav-h) + var(--safe-bottom) + 82px);
-      width:50px;
-      height:50px;
+      width:38px;
+      height:38px;
+      margin:0 2px;
+      box-shadow:none;
     }
-    .ai-fab svg{width:22px;height:22px;}
+    .ai-fab svg{width:20px;height:20px;}
   }
+
+  /* Legacy floating AI FAB hidden (replaced by header button) */
+  .ai-fab.floating{display:none;}
 
   .ai-backdrop{
     position:fixed;
@@ -2007,6 +2028,13 @@
       <div class="mtb-title" id="mtbTitle">No document</div>
       <div class="mtb-sub" id="mtbSub">Tap ☰ to open a PDF</div>
     </div>
+    <!-- AI Assistant moved to header (mobile) -->
+    <button class="ai-fab ai-trigger" id="mtbAi" aria-label="AI Assistant" title="AI Assistant">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2a9 9 0 0 1 9 9c0 4-2 7-5 8v3l-3-2h-1a9 9 0 0 1-9-9 9 9 0 0 1 9-9z"/>
+        <path d="M9 11h.01"/><path d="M12 11h.01"/><path d="M15 11h.01"/>
+      </svg>
+    </button>
     <button class="mtb-btn" id="mtbProxy" aria-label="Proxy">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/>
@@ -2111,6 +2139,13 @@
     </div>
 
     <div class="menubar-right">
+      <!-- AI Assistant moved to header (desktop) -->
+      <button class="ai-fab ai-trigger" id="aiFab" aria-label="AI Assistant" title="AI Assistant — PDF analysis & chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a9 9 0 0 1 9 9c0 4-2 7-5 8v3l-3-2h-1a9 9 0 0 1-9-9 9 9 0 0 1 9-9z"/>
+          <path d="M9 11h.01"/><path d="M12 11h.01"/><path d="M15 11h.01"/>
+        </svg>
+      </button>
       <span id="doc-title">No document open</span>
       <div class="tts-quick-pill" id="ttsQuickPill" title="TTS Media Controls">
         <span class="tqp-status" id="tqpStatus"></span>
@@ -2564,12 +2599,25 @@
 <iframe id="print-frame"></iframe>
 
 <!-- ============================================================
-     HEX TTS — PLAYBACK DOCK
+     HEX TTS — PLAYBACK DOCK  (Background Playback Control Panel)
      ============================================================ -->
 <div class="tts-dock" id="ttsDock" aria-hidden="true">
   <button class="play-btn" id="ttsPlayBtn" aria-label="Play / Pause">
     <svg id="ttsPlayIcon" viewBox="0 0 24 24">
       <polygon points="6 3 20 12 6 21 6 3"/>
+    </svg>
+  </button>
+  <!-- NEW: Backward / Forward skip buttons -->
+  <button class="dock-btn dock-skip" id="ttsSkipBackBtn" aria-label="Rewind (Backward)" title="Rewind / Backward">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <polygon points="19 20 9 12 19 4 19 20"/>
+      <rect x="4" y="4" width="2.5" height="16" rx="0.5"/>
+    </svg>
+  </button>
+  <button class="dock-btn dock-skip" id="ttsSkipFwdBtn" aria-label="Forward (Skip ahead)" title="Forward / Skip ahead">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <polygon points="5 4 15 12 5 20 5 4"/>
+      <rect x="17.5" y="4" width="2.5" height="16" rx="0.5"/>
     </svg>
   </button>
   <div class="dock-info">
@@ -2634,15 +2682,8 @@
 </div>
 
 <!-- ============================================================
-     HEX — AI ASSISTANT (Stirling PDF analysis + chat)
+     HEX — AI ASSISTANT PANEL (button itself is in the header now)
      ============================================================ -->
-<button class="ai-fab" id="aiFab" aria-label="AI Assistant" title="AI Assistant — PDF analysis & chat">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 2a9 9 0 0 1 9 9c0 4-2 7-5 8v3l-3-2h-1a9 9 0 0 1-9-9 9 9 0 0 1 9-9z"/>
-    <path d="M9 11h.01"/><path d="M12 11h.01"/><path d="M15 11h.01"/>
-  </svg>
-</button>
-
 <div class="ai-backdrop" id="aiBackdrop"></div>
 <aside class="ai-panel" id="aiPanel" aria-hidden="true" aria-label="AI PDF Assistant">
   <div class="ai-head">
@@ -2873,7 +2914,6 @@
     return { modal: modal, body: bodyNode, ok: okBtn, cancel: cancelBtn };
   }
 
-  // Expose modal builder for TTS module
   window.HEXShowModal = showModal;
   window.HEXCloseModal = closeModal;
   window.HEXToast = toast;
@@ -3200,7 +3240,6 @@
     }).promise.then(function (doc) {
       state.pdfDoc = doc;
 
-      /* ===== HEX TTS hook: expose document to the reading module ===== */
       window.HEXStudio = window.HEXStudio || {};
       window.HEXStudio.getPdfDoc = function () { return state.pdfDoc; };
       window.HEXStudio.getPdfBytes = function () { return state.pdfBytes; };
@@ -3483,7 +3522,6 @@
         updateFullscreenUI();
         setStatus("Page " + num + " of " + state.pdfDoc.numPages);
 
-        /* ===== HEX TTS hook: let the reading module rebuild its text layer ===== */
         window.dispatchEvent(new CustomEvent("hex:pageRendered", {
           detail: {
             pageNum: num,
@@ -4857,13 +4895,12 @@
     var rootEl = document.documentElement;
     try {
       if (rootEl.requestFullscreen) {
-        rootEl.requestFullscreen().catch(function () { /* CSS fallback still works */ });
+        rootEl.requestFullscreen().catch(function () {});
       } else if (rootEl.webkitRequestFullscreen) {
         rootEl.webkitRequestFullscreen();
       }
     } catch (e) {}
     updateFullscreenUI();
-    // Best effort: keep screen awake while reading
     if (navigator.wakeLock && navigator.wakeLock.request) {
       navigator.wakeLock.request("screen").then(function (l) {
         wakeLockRef = l;
@@ -5509,7 +5546,6 @@
       if (mod && e.key === "-") { e.preventDefault(); zoomOut(); return; }
       if (mod && e.key === "0") { e.preventDefault(); zoomReset(); return; }
 
-      // Fullscreen shortcut (F11 / Ctrl+Shift+F)
       if (e.key === "F11") {
         e.preventDefault();
         toggleFullscreen();
@@ -5615,8 +5651,10 @@
 
 <!-- ============================================================================
      HEX TTS — Speech Engine, Text Layer, Voice Picker, Dictionary
-     Adds auto-detected "read from any word" playback to HEX — PDF Studio
-     Now with HLS streaming playback support.
+     Adds auto-detected "read from any word" playback to HEX — PDF Studio.
+     Includes: Media Session API (background playback + system controls),
+     Notifications on playback start, robust unlimited local voice loading,
+     and Backward / Forward skip buttons in the dock.
      ============================================================================ -->
 <script>
 (function () {
@@ -5630,26 +5668,30 @@
   var STORAGE_KEY_VOICE = "hex-tts-voice";
   var STORAGE_KEY_ENGINE = "hex-tts-engine";
   var STORAGE_KEY_HLS_URL = "hex-tts-hls-url";
+  var STORAGE_KEY_NOTIF_PERM = "hex-tts-notif-perm-asked";
   var DICT_API = "https://api.dictionaryapi.dev/api/v2/entries/en";
   var SPEED_OPTIONS = [0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.5, 3.0];
+  var SKIP_WORD_COUNT = 30;   // words to skip forward/backward when no sentence boundary
+  var SKIP_SECONDS = 10;       // seconds to skip in HLS mode
 
   /* ============================================================
      STATE
      ============================================================ */
   var state = {
-    pdfData: null,          // { allWords, pages, totalWordCount, estimatedReadTime }
-    idMap: null,            // Map wordId -> global index
+    pdfData: null,
+    idMap: null,
     currentWordIndex: -1,
     currentPage: 1,
-    highlightMode: "word",  // 'word' | 'sentence'
+    highlightMode: "word",
     userScrolledAway: false,
     extracting: false,
     extractPromise: null,
-    lastRenderedPage: 0
+    lastRenderedPage: 0,
+    fileName: "document.pdf"
   };
 
   var speech = {
-    status: "idle",         // idle | playing | paused
+    status: "idle",
     rate: 1.0,
     gen: 0,
     shouldContinue: false,
@@ -5662,15 +5704,15 @@
     boundaryWorked: false
   };
 
-  // HLS engine configuration
   var hlsConfig = {
-    engine: "browser",             // 'browser' | 'hls'
-    urlTemplate: "",               // e.g. "https://tts.example.com/page/{page}.m3u8"
+    engine: "browser",
+    urlTemplate: "",
     hlsInstance: null,
     audio: null,
     hlsWordsEstimator: null,
     hlsWordCursor: 0,
-    hlsWordsPerPage: null
+    hlsWordsPerPage: null,
+    _currentHlsPage: 0
   };
 
   var voicesState = {
@@ -5678,13 +5720,19 @@
     selectedVoice: null,
     isLoading: true,
     searchQuery: "",
-    genderFilter: "all"
+    genderFilter: "all",
+    loadAttempts: 0,
+    loadedFully: false
   };
 
   var dict = {
     cache: new Map(),
     abortController: null
   };
+
+  var mediaSessionReady = false;
+  var notifEnabled = false;
+  var lastNotifAt = 0;
 
   /* ============================================================
      DOM CACHE
@@ -5701,6 +5749,8 @@
     dom.ttsSpeedBtn = document.getElementById("ttsSpeedBtn");
     dom.ttsSpeedLabel = document.getElementById("ttsSpeedLabel");
     dom.ttsVoiceBtn = document.getElementById("ttsVoiceBtn");
+    dom.ttsSkipBackBtn = document.getElementById("ttsSkipBackBtn");
+    dom.ttsSkipFwdBtn = document.getElementById("ttsSkipFwdBtn");
     dom.ttsProgressFill = document.getElementById("ttsProgressFill");
     dom.ttsProgressText = document.getElementById("ttsProgressText");
     dom.ttsWaveform = document.getElementById("ttsWaveform");
@@ -5856,43 +5906,113 @@
     return voices.filter(function (v) { return v.gender === gender; });
   }
 
+  /* ============================================================
+     VOICE LOADING — robust, unlimited local + remote voices
+     Uses getVoices() polling + voiceschanged, dedup by name+lang,
+     handles late-loading local voices (Windows/macOS/Linux/Android).
+     ============================================================ */
   function loadVoices() {
     if (!window.speechSynthesis) return;
     var synth = window.speechSynthesis;
-    function fill() {
-      var raw = synth.getVoices() || [];
-      if (!raw.length) return;
-      voicesState.voices = raw.map(function (v) {
-        return {
-          voice: v,
-          name: v.name,
-          lang: v.lang,
-          langDisplay: getLangDisplay(v.lang),
-          country: (v.lang.split("-")[1] || "").toUpperCase(),
-          gender: guessGender(v.name),
-          isLocal: v.localService
-        };
-      }).sort(function (a, b) {
-        if (a.isLocal && !b.isLocal) return -1;
-        if (!a.isLocal && b.isLocal) return 1;
-        if (a.lang < b.lang) return -1;
-        if (a.lang > b.lang) return 1;
-        return a.name.localeCompare(b.name);
+    voicesState.loadAttempts = 0;
+    voicesState.loadedFully = false;
+
+    function mergeAndRender(raw) {
+      if (!raw || !raw.length) return;
+
+      // Merge with existing (some engines fire voiceschanged multiple times)
+      var byKey = {};
+      voicesState.voices.forEach(function (v) {
+        byKey[v.name + "|" + v.lang] = v;
       });
+      raw.forEach(function (v) {
+        var key = v.name + "|" + v.lang;
+        if (!byKey[key]) {
+          byKey[key] = {
+            voice: v,
+            name: v.name,
+            lang: v.lang,
+            langDisplay: getLangDisplay(v.lang),
+            country: (v.lang.split("-")[1] || "").toUpperCase(),
+            gender: guessGender(v.name),
+            isLocal: v.localService
+          };
+        }
+      });
+
+      voicesState.voices = Object.keys(byKey).map(function (k) { return byKey[k]; })
+        .sort(function (a, b) {
+          if (a.isLocal && !b.isLocal) return -1;
+          if (!a.isLocal && b.isLocal) return 1;
+          if (a.lang < b.lang) return -1;
+          if (a.lang > b.lang) return 1;
+          return a.name.localeCompare(b.name);
+        });
+
       voicesState.isLoading = false;
-      var saved = null;
-      try { saved = localStorage.getItem(STORAGE_KEY_VOICE); } catch (e) {}
-      var sel = saved ? voicesState.voices.filter(function (v) { return v.name === saved; })[0] : null;
-      if (!sel) {
-        sel = voicesState.voices.filter(function (v) { return v.lang.indexOf("en-") === 0 && v.isLocal; })[0]
-           || voicesState.voices.filter(function (v) { return v.lang.indexOf("en-") === 0; })[0]
-           || voicesState.voices[0] || null;
+
+      // Pick default voice: saved > en-US local > en-* local > en-* > any
+      if (!voicesState.selectedVoice) {
+        var saved = null;
+        try { saved = localStorage.getItem(STORAGE_KEY_VOICE); } catch (e) {}
+        var sel = saved ? voicesState.voices.filter(function (v) { return v.name === saved; })[0] : null;
+        if (!sel) {
+          sel = voicesState.voices.filter(function (v) { return v.lang.indexOf("en-") === 0 && v.isLocal; })[0]
+             || voicesState.voices.filter(function (v) { return v.lang.indexOf("en-") === 0; })[0]
+             || voicesState.voices[0] || null;
+        }
+        if (sel) selectVoice(sel, true);
       }
-      if (sel) selectVoice(sel, true);
+
       renderVoiceList();
     }
-    fill();
-    synth.addEventListener("voiceschanged", fill);
+
+    function pollAndFill() {
+      voicesState.loadAttempts++;
+      var voices = synth.getVoices() || [];
+      if (voices.length) {
+        mergeAndRender(voices);
+        // Some browsers keep adding voices later (e.g., Chromium adds remote Google voices)
+        // Keep polling for a while to catch late arrivals
+        if (voicesState.loadAttempts < 20) {
+          setTimeout(pollAndFill, 250);
+        } else {
+          voicesState.loadedFully = true;
+        }
+      } else if (voicesState.loadAttempts < 25) {
+        setTimeout(pollAndFill, 200);
+      } else {
+        // Give up after ~5s
+        voicesState.isLoading = false;
+        renderVoiceList();
+      }
+    }
+
+    // Immediate attempt
+    pollAndFill();
+
+    // Some browsers need a user gesture to unlock voices – re-poll on first tap
+    var once = function () { pollAndFill(); };
+    document.addEventListener("click", once, { once: true });
+    document.addEventListener("touchstart", once, { once: true });
+
+    // Standard voiceschanged handler (may fire multiple times)
+    synth.addEventListener("voiceschanged", function () {
+      voicesState.loadAttempts = 0;
+      pollAndFill();
+    });
+
+    // Safari fallback: periodically ask for voices
+    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+      var safariPoll = setInterval(function () {
+        if (voicesState.loadedFully) { clearInterval(safariPoll); return; }
+        var v = synth.getVoices() || [];
+        if (v.length > voicesState.voices.length) {
+          voicesState.loadAttempts = 0;
+          pollAndFill();
+        }
+      }, 800);
+    }
   }
 
   function selectVoice(v, silent) {
@@ -6008,6 +6128,158 @@
       });
       dom.vpList.appendChild(item);
     });
+  }
+
+  /* ============================================================
+     MEDIA SESSION API — background playback + system controls
+     ============================================================ */
+  function setupMediaSession() {
+    if (!("mediaSession" in navigator)) return;
+    if (mediaSessionReady) return;
+    mediaSessionReady = true;
+
+    try {
+      // Cover art: small inline SVG for system UI
+      var coverSvg =
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">' +
+        '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">' +
+        '<stop offset="0" stop-color="#8e44ad"/><stop offset="1" stop-color="#1473e6"/></linearGradient></defs>' +
+        '<rect width="96" height="96" rx="12" fill="url(#g)"/>' +
+        '<text x="48" y="58" text-anchor="middle" font-family="sans-serif" font-size="44" font-weight="700" fill="#fff">TTS</text>' +
+        '</svg>';
+      var coverUrl = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(coverSvg);
+
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: "HEX PDF Reader",
+        artist: "Text-to-Speech",
+        album: state.fileName || "Document",
+        artwork: [
+          { src: coverUrl, sizes: "96x96", type: "image/svg+xml" }
+        ]
+      });
+    } catch (e) {}
+
+    try {
+      navigator.mediaSession.setActionHandler("play", function () {
+        if (speech.status === "paused") resumeSpeech();
+        else if (speech.status === "idle") togglePlayPause();
+      });
+    } catch (e) {}
+
+    try {
+      navigator.mediaSession.setActionHandler("pause", function () {
+        pauseSpeech();
+      });
+    } catch (e) {}
+
+    try {
+      navigator.mediaSession.setActionHandler("stop", function () {
+        stopSpeech(false);
+      });
+    } catch (e) {}
+
+    try {
+      navigator.mediaSession.setActionHandler("previoustrack", function () {
+        skipBackward();
+      });
+    } catch (e) {}
+
+    try {
+      navigator.mediaSession.setActionHandler("nexttrack", function () {
+        skipForward();
+      });
+    } catch (e) {}
+
+    try {
+      navigator.mediaSession.setActionHandler("seekbackward", function (details) {
+        skipBackward();
+      });
+    } catch (e) {}
+
+    try {
+      navigator.mediaSession.setActionHandler("seekforward", function (details) {
+        skipForward();
+      });
+    } catch (e) {}
+  }
+
+  function updateMediaSessionState() {
+    if (!("mediaSession" in navigator)) return;
+    try {
+      if (speech.status === "playing") {
+        navigator.mediaSession.playbackState = "playing";
+      } else if (speech.status === "paused") {
+        navigator.mediaSession.playbackState = "paused";
+      } else {
+        navigator.mediaSession.playbackState = "none";
+      }
+    } catch (e) {}
+
+    // Update metadata with current page info
+    try {
+      var page = state.lastRenderedPage || 1;
+      var total = state.pdfData ? state.pdfData.pages.length : 0;
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: "HEX PDF Reader — Page " + page + (total ? " / " + total : ""),
+        artist: "Text-to-Speech · " + (state.fileName || "Document"),
+        album: state.fileName || "Document"
+      });
+    } catch (e) {}
+  }
+
+  /* ============================================================
+     NOTIFICATIONS — show one when TTS playback starts
+     ============================================================ */
+  function showTTSNotification(title, body) {
+    if (!("Notification" in window)) return;
+    if (Notification.permission !== "granted") return;
+    if (!body) body = "Tap to return to HEX PDF Studio";
+
+    // Debounce — don't spam if user is rapidly pausing/resuming
+    var now = Date.now();
+    if (now - lastNotifAt < 4000) return;
+    lastNotifAt = now;
+
+    try {
+      var n = new Notification(title, {
+        body: body,
+        icon: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96"><rect width="96" height="96" rx="16" fill="#8e44ad"/><text x="48" y="62" text-anchor="middle" font-family="sans-serif" font-size="48" font-weight="700" fill="#fff">T</text></svg>'
+        ),
+        tag: "hex-tts-playback",
+        renotify: false,
+        silent: true
+      });
+      n.onclick = function () {
+        try { window.focus(); } catch (e) {}
+        n.close();
+      };
+      setTimeout(function () { try { n.close(); } catch (e) {} }, 8000);
+    } catch (e) {
+      // Notification constructor may fail on mobile without SW; use SW if available
+      if (navigator.serviceWorker && navigator.serviceWorker.ready) {
+        navigator.serviceWorker.ready.then(function (reg) {
+          try { reg.showNotification(title, { body: body, tag: "hex-tts-playback" }); } catch (e) {}
+        }).catch(function () {});
+      }
+    }
+  }
+
+  function requestNotificationPermission() {
+    if (!("Notification" in window)) return;
+    if (Notification.permission === "granted") {
+      notifEnabled = true;
+      return;
+    }
+    if (Notification.permission === "denied") return;
+    try {
+      var asked = localStorage.getItem(STORAGE_KEY_NOTIF_PERM);
+      // Only prompt on real user gesture
+      Notification.requestPermission().then(function (p) {
+        notifEnabled = (p === "granted");
+        try { localStorage.setItem(STORAGE_KEY_NOTIF_PERM, "1"); } catch (e) {}
+      }).catch(function () {});
+    } catch (e) {}
   }
 
   /* ============================================================
@@ -6182,8 +6454,6 @@
           if (!item || !item.str) return;
           var str = item.str;
           if (!str.trim()) return;
-          var transform = item.transform || [1, 0, 0, 1, 0, 0];
-          var itemWidth = typeof item.width === "number" ? item.width : 0;
           var re = /\S+/g;
           var m;
           while ((m = re.exec(str)) !== null) {
@@ -6410,7 +6680,6 @@
 
   function playFromWord(globalIndex) {
     if (hlsConfig.engine === "hls") {
-      // In HLS mode, start streaming for the page containing this word
       if (!state.pdfData) return;
       var word = state.pdfData.allWords[globalIndex];
       var pageNum = word ? word.pageIndex + 1 : (state.lastRenderedPage || 1);
@@ -6435,6 +6704,15 @@
     state.currentWordIndex = speakIdx;
     updatePlayUI();
     updateProgressUI();
+    updateMediaSessionState();
+    setupMediaSession();
+
+    // Notify user on first playback start
+    if (!notifEnabled) {
+      notifEnabled = true;
+      showTTSNotification("TTS Reading started", "Reading aloud from page " + (state.lastRenderedPage || 1));
+    }
+
     var allWords = state.pdfData.allWords;
     var voice = voicesState.selectedVoice;
     setTimeout(function () {
@@ -6603,6 +6881,7 @@
         hlsConfig.audio.pause();
         speech.status = "paused";
         updatePlayUI();
+        updateMediaSessionState();
       }
       return;
     }
@@ -6612,6 +6891,7 @@
     speech.status = "paused";
     updatePlayUI();
     updateProgressUI();
+    updateMediaSessionState();
   }
 
   function resumeSpeech() {
@@ -6622,6 +6902,7 @@
         });
         speech.status = "playing";
         updatePlayUI();
+        updateMediaSessionState();
       }
       return;
     }
@@ -6631,6 +6912,7 @@
       try { window.speechSynthesis.resume(); } catch (e) {}
       updatePlayUI();
       updateProgressUI();
+      updateMediaSessionState();
       return;
     }
     var idx = state.currentWordIndex;
@@ -6642,10 +6924,10 @@
     }
     updatePlayUI();
     updateProgressUI();
+    updateMediaSessionState();
   }
 
   function stopSpeech(silent) {
-    // Always tear down HLS too
     destroyHls(true);
 
     speech.gen++;
@@ -6661,8 +6943,9 @@
     clearAllHighlights();
     updatePlayUI();
     updateProgressUI();
+    updateMediaSessionState();
     if (!silent) {
-      // no toast for user-invoked stop
+      // no toast
     }
   }
 
@@ -6673,7 +6956,87 @@
     clearAllHighlights();
     updatePlayUI();
     updateProgressUI();
+    updateMediaSessionState();
     toast("Reading complete!", "ok", 3500);
+  }
+
+  /* ============================================================
+     SKIP BACKWARD / FORWARD
+     ============================================================ */
+  function skipBackward() {
+    // HLS mode: rewind by N seconds
+    if (hlsConfig.engine === "hls" && hlsConfig.audio) {
+      try {
+        hlsConfig.audio.currentTime = Math.max(0, hlsConfig.audio.currentTime - SKIP_SECONDS);
+      } catch (e) {}
+      return;
+    }
+
+    if (!state.pdfData || state.currentWordIndex < 0) {
+      // Nothing playing — start from beginning of current page
+      if (state.pdfData) {
+        var pi = state.lastRenderedPage - 1;
+        for (var i = 0; i < state.pdfData.allWords.length; i++) {
+          if (state.pdfData.allWords[i].pageIndex === pi) {
+            playFromWord(i);
+            return;
+          }
+        }
+      }
+      return;
+    }
+
+    // Jump back to start of current sentence; if we're already at start, jump to previous sentence
+    var range = getSentenceRange(state.pdfData.allWords, state.currentWordIndex);
+    var target;
+    if (state.currentWordIndex > range.start + 2) {
+      target = range.start;
+    } else {
+      // Find previous sentence boundary
+      var prevStart = range.start - 1;
+      for (var j = prevStart; j >= 0; j--) {
+        var w = state.pdfData.allWords[j];
+        if (!w) continue;
+        var last = (w.originalText || "").trim().slice(-1);
+        if (last === "." || last === "?" || last === "!") {
+          target = j + 1;
+          break;
+        }
+        if (j === 0) target = 0;
+      }
+      if (target === undefined) {
+        target = Math.max(0, state.currentWordIndex - SKIP_WORD_COUNT);
+      }
+    }
+    if (target === undefined) target = 0;
+    playFromWord(target);
+    toast("⏪ Backward", "ok", 1200);
+  }
+
+  function skipForward() {
+    // HLS mode: skip ahead by N seconds
+    if (hlsConfig.engine === "hls" && hlsConfig.audio) {
+      try {
+        if (isFinite(hlsConfig.audio.duration)) {
+          hlsConfig.audio.currentTime = Math.min(hlsConfig.audio.duration, hlsConfig.audio.currentTime + SKIP_SECONDS);
+        } else {
+          hlsConfig.audio.currentTime += SKIP_SECONDS;
+        }
+      } catch (e) {}
+      return;
+    }
+
+    if (!state.pdfData || state.currentWordIndex < 0) return;
+
+    // Jump forward to start of next sentence
+    var range = getSentenceRange(state.pdfData.allWords, state.currentWordIndex);
+    var target = range.end + 1;
+    if (target >= state.pdfData.allWords.length) {
+      // At end — just skip a chunk back
+      target = Math.min(state.pdfData.allWords.length - 1, state.currentWordIndex + SKIP_WORD_COUNT);
+    }
+    playFromWord(target);
+    toast("⏩ Forward", "ok", 1200);
   }
 
   function togglePlayPause() {
@@ -6686,7 +7049,6 @@
         resumeSpeech();
         return;
       }
-      // Start fresh
       var pageNum = state.lastRenderedPage || 1;
       startHlsForPage(pageNum);
       return;
@@ -6740,6 +7102,7 @@
     if (!silent) {
       speech.status = "idle";
       updatePlayUI();
+      updateMediaSessionState();
     }
   }
 
@@ -6752,21 +7115,25 @@
     audio.addEventListener("play", function () {
       speech.status = "playing";
       updatePlayUI();
+      updateMediaSessionState();
     });
     audio.addEventListener("pause", function () {
       if (speech.status === "playing") {
         speech.status = "paused";
         updatePlayUI();
+        updateMediaSessionState();
       }
     });
     audio.addEventListener("playing", function () {
       speech.status = "playing";
       updatePlayUI();
+      updateMediaSessionState();
     });
     audio.addEventListener("ended", function () {
       speech.status = "idle";
       updatePlayUI();
       updateProgressUI();
+      updateMediaSessionState();
     });
     audio.addEventListener("timeupdate", function () {
       updateHlsProgress();
@@ -6779,6 +7146,7 @@
       toast("HLS audio playback error.", "err", 4000);
       speech.status = "idle";
       updatePlayUI();
+      updateMediaSessionState();
     });
 
     hlsConfig.audio = audio;
@@ -6811,7 +7179,6 @@
 
     var audio = ensureHlsAudio();
 
-    // Tear down previous stream
     if (hlsConfig.hlsInstance) {
       try { hlsConfig.hlsInstance.destroy(); } catch (e) {}
       hlsConfig.hlsInstance = null;
@@ -6828,8 +7195,11 @@
     var gen = speech.gen;
 
     updatePlayUI();
+    updateMediaSessionState();
     if (dom.ttsHlsCur) dom.ttsHlsCur.textContent = "0:00";
     if (dom.ttsHlsFill) dom.ttsHlsFill.style.width = "0%";
+
+    hlsConfig._currentHlsPage = pageNum;
 
     var HlsCtor = window.Hls;
     var isSafariNative = !!audio.canPlayType("application/vnd.apple.mpegurl");
@@ -6842,6 +7212,7 @@
         toast("HLS play failed: " + e.message, "err", 5000);
         speech.status = "idle";
         updatePlayUI();
+        updateMediaSessionState();
       });
     }
 
@@ -6863,6 +7234,7 @@
             toast("HLS play failed: " + e.message, "err", 5000);
             speech.status = "idle";
             updatePlayUI();
+            updateMediaSessionState();
           });
         });
         hls.on(HlsCtor.Events.ERROR, function (evt, data) {
@@ -6876,7 +7248,7 @@
       } catch (e) {
         toast("HLS init failed: " + e.message, "err");
         if (isSafariNative) beginNativeFallback();
-        else { speech.status = "idle"; updatePlayUI(); }
+        else { speech.status = "idle"; updatePlayUI(); updateMediaSessionState(); }
       }
     } else if (isSafariNative) {
       beginNativeFallback();
@@ -6884,9 +7256,9 @@
       toast("HLS is not supported in this browser.", "err", 5000);
       speech.status = "idle";
       updatePlayUI();
+      updateMediaSessionState();
     }
 
-    // Best-effort word following: advance highlight using audio time + page word rate
     startHlsWordEstimator(pageNum, gen);
   }
 
@@ -7116,7 +7488,7 @@
   }
 
   /* ============================================================
-     TTS CONFIG EXPOSURE (for main app menu)
+     TTS CONFIG EXPOSURE
      ============================================================ */
   function loadTtsConfig() {
     try {
@@ -7141,7 +7513,6 @@
       hlsConfig.urlTemplate = cfg.hlsUrl;
       try { localStorage.setItem(STORAGE_KEY_HLS_URL, cfg.hlsUrl); } catch (e) {}
     }
-    // If engine changed away from HLS, tear down any active HLS stream
     if (hlsConfig.engine !== "hls") {
       destroyHls(true);
       speech.status = "idle";
@@ -7156,6 +7527,8 @@
   function initUI() {
     if (dom.ttsPlayBtn) dom.ttsPlayBtn.addEventListener("click", togglePlayPause);
     if (dom.ttsStopBtn) dom.ttsStopBtn.addEventListener("click", function () { stopSpeech(false); });
+    if (dom.ttsSkipBackBtn) dom.ttsSkipBackBtn.addEventListener("click", skipBackward);
+    if (dom.ttsSkipFwdBtn) dom.ttsSkipFwdBtn.addEventListener("click", skipForward);
     if (dom.ttsSpeedBtn) dom.ttsSpeedBtn.addEventListener("click", function (e) {
       e.stopPropagation();
       if (dom.ttsSpeedMenu.classList.contains("open")) closeSpeedMenu();
@@ -7163,7 +7536,6 @@
     });
     if (dom.ttsVoiceBtn) dom.ttsVoiceBtn.addEventListener("click", openVoicePicker);
 
-    // HLS progress bar seek
     if (dom.ttsHlsTrack) {
       dom.ttsHlsTrack.addEventListener("click", function (e) {
         if (!hlsConfig.audio || !isFinite(hlsConfig.audio.duration) || hlsConfig.audio.duration <= 0) return;
@@ -7230,6 +7602,38 @@
         closeDefinition();
       });
     }
+
+    // First user gesture unlocks Notification + voice loading
+    var once = function () {
+      requestNotificationPermission();
+      // Re-poll voices once on first gesture (Safari/mobile fix)
+      if (voicesState.voices.length === 0 && window.speechSynthesis) {
+        voicesState.loadAttempts = 0;
+        var v = window.speechSynthesis.getVoices() || [];
+        if (v.length) {
+          voicesState.voices = v.map(function (x) {
+            return {
+              voice: x, name: x.name, lang: x.lang,
+              langDisplay: getLangDisplay(x.lang),
+              country: (x.lang.split("-")[1] || "").toUpperCase(),
+              gender: guessGender(x.name),
+              isLocal: x.localService
+            };
+          });
+          voicesState.isLoading = false;
+          if (!voicesState.selectedVoice && voicesState.voices.length) {
+            var sel = voicesState.voices.filter(function (x) { return x.lang.indexOf("en-") === 0 && x.isLocal; })[0] || voicesState.voices[0];
+            selectVoice(sel, true);
+          }
+          renderVoiceList();
+        }
+      }
+    };
+    document.addEventListener("click", once, { once: true });
+    document.addEventListener("touchstart", once, { once: true, passive: true });
+
+    // Setup media session immediately (idempotent)
+    setupMediaSession();
   }
 
   /* ============================================================
@@ -7242,16 +7646,18 @@
       state.extractPromise = null;
       state.currentWordIndex = -1;
       state.userScrolledAway = false;
+      var studio = window.HEXStudio;
+      if (studio && studio.getFileName) state.fileName = studio.getFileName();
       showDock();
       updatePlayUI();
       updateProgressUI();
+      updateMediaSessionState();
       setTimeout(function () {
         extractAllPages().then(function (data) {
           if (data && data.totalWordCount > 0) {
             setTimeout(function () {
               try {
-                var evt = new CustomEvent("hex:ttsRequestRender", {});
-                window.dispatchEvent(evt);
+                window.dispatchEvent(new CustomEvent("hex:ttsRequestRender", {}));
               } catch (e) {}
             }, 30);
           } else if (data && data.totalWordCount === 0) {
@@ -7268,6 +7674,7 @@
       state.idMap = null;
       state.extractPromise = null;
       state.lastRenderedPage = 0;
+      state.fileName = "document.pdf";
       var tl = dom.pageWrap ? dom.pageWrap.querySelector(".textLayer") : null;
       if (tl && tl.parentNode) tl.parentNode.removeChild(tl);
     });
@@ -7284,7 +7691,6 @@
         });
       }
 
-      // In HLS mode, if a stream is currently playing, advance to new page's stream
       if (hlsConfig.engine === "hls" &&
           speech.status === "playing" &&
           hlsConfig.audio &&
@@ -7296,6 +7702,7 @@
           startHlsForPage(d.pageNum);
         }
       }
+      updateMediaSessionState();
     });
 
     window.addEventListener("hex:ttsRequestPage", function (e) {
@@ -7314,6 +7721,22 @@
       if (!pi) return;
       var kd = new KeyboardEvent("keydown", { key: "Enter", bubbles: true });
       pi.dispatchEvent(kd);
+    });
+
+    // Handle volume changes from media panel
+    window.addEventListener("hex:volumeChange", function () {
+      if (hlsConfig.audio) {
+        var v = parseFloat(localStorage.getItem("hex-user-volume") || "1");
+        var m = localStorage.getItem("hex-user-muted") === "1";
+        try { hlsConfig.audio.volume = m ? 0 : v; } catch (e) {}
+      }
+    });
+    window.addEventListener("hex:muteChange", function () {
+      if (hlsConfig.audio) {
+        var v = parseFloat(localStorage.getItem("hex-user-volume") || "1");
+        var m = localStorage.getItem("hex-user-muted") === "1";
+        try { hlsConfig.audio.volume = m ? 0 : v; } catch (e) {}
+      }
     });
   }
 
@@ -7340,17 +7763,12 @@
 
 <!-- ============================================================================
      HEX — TTS NOTE / MEDIA / SOUND CONTROL PANEL + AI PDF ASSISTANT
-     Adds a compact media panel to the header for controlling TTS playback,
-     volume, notification sounds, and reading notes — plus a Stirling PDF
-     powered AI chat panel using free endpoints (no API key required).
+     The AI trigger button now lives in the header.
      ============================================================================ -->
 <script>
 (function () {
   "use strict";
 
-  /* ============================================================
-     CONSTANTS & STATE
-     ============================================================ */
   var STORAGE_VOLUME = "hex-user-volume";
   var STORAGE_MUTED = "hex-user-muted";
   var STORAGE_NOTIF = "hex-notif-sounds";
@@ -7380,9 +7798,6 @@
 
   var audioCtxRef = null;
 
-  /* ============================================================
-     HELPERS
-     ============================================================ */
   function $id(id) { return document.getElementById(id); }
 
   function escapeHtml(s) {
@@ -7406,9 +7821,6 @@
     }, dur || 3200);
   }
 
-  /* ============================================================
-     WEB AUDIO NOTIFICATION TONES (no dependencies)
-     ============================================================ */
   function getAudioCtx() {
     if (audioCtxRef) return audioCtxRef;
     try {
@@ -7453,8 +7865,6 @@
     });
   }
 
-  // Wrap the global HEXToast so every system toast triggers a subtle tone
-  // (respects user toggle; only positive/negative/warn tones play)
   function wrapGlobalToast() {
     if (!window.HEXToast) return;
     var orig = window.HEXToast;
@@ -7466,9 +7876,6 @@
     };
   }
 
-  /* ============================================================
-     VOLUME PATCHING (Web Speech + HLS audio)
-     ============================================================ */
   function effectiveVolume() {
     return mediaState.muted ? 0 : mediaState.volume;
   }
@@ -7523,9 +7930,6 @@
     } catch (e) {}
   }
 
-  /* ============================================================
-     MEDIA PANEL UI SYNC
-     ============================================================ */
   function updateMediaPanelUI() {
     var statusEl = $id("tmpStatus");
     var playIcon = $id("tmpPlayIcon");
@@ -7596,7 +8000,6 @@
     if (btn) {
       btn.click();
     } else {
-      // fallback: HLS safe no-op
       toast("TTS not ready yet — open a PDF first.", "warn");
     }
     setTimeout(updateMediaPanelUI, 120);
@@ -7608,11 +8011,6 @@
       btn.click();
     } else {
       try { window.speechSynthesis.cancel(); } catch (e) {}
-      var dock = $id("ttsDock");
-      if (dock) {
-        // best effort: fire stop via custom event
-        window.dispatchEvent(new CustomEvent("hex:ttsRequestStop"));
-      }
     }
     setTimeout(updateMediaPanelUI, 120);
   }
@@ -7644,9 +8042,6 @@
     if (mediaState.notifSounds) playNotifTone("ok");
   }
 
-  /* ============================================================
-     TTS NOTE PANEL — simple reading bookmarks stored locally
-     ============================================================ */
   function openTtsNotePanel() {
     var modal = window.HEXShowModal;
     var box = document.createElement("div");
@@ -7780,10 +8175,8 @@
       );
     }
 
-    // Refresh server URL each time (in case user changed it)
     aiState.serverUrl = (localStorage.getItem("stirlingServerUrl") || "http://localhost:8080").trim().replace(/\/+$/, "");
 
-    // Kick off PDF text extraction
     if (!aiState.pdfLoaded) {
       extractPdfForAI();
     }
@@ -7834,7 +8227,6 @@
 
     setAISub("Extracting text from PDF…");
 
-    // 1) Client-side extraction via PDF.js (fastest, no server needed)
     if (pdfDoc) {
       try {
         var allText = [];
@@ -7866,7 +8258,6 @@
       }
     }
 
-    // 2) Fallback via Stirling PDF server text extraction
     if (pdfBytes && aiState.serverUrl) {
       try {
         var fd = new FormData();
@@ -7950,7 +8341,6 @@
     addAIMessage("user", userText.trim());
     addAITyping();
 
-    // Make sure we have context
     if (!aiState.pdfLoaded) {
       try { await extractPdfForAI(); } catch (e) {}
     }
@@ -7963,7 +8353,6 @@
 
     var messages = [{ role: "system", content: systemPrompt }];
 
-    // Include a bounded slice of recent history
     var history = aiState.messages.slice(-6);
     history.forEach(function (m) { messages.push(m); });
 
@@ -7982,7 +8371,6 @@
       content: contextBlock + "Question: " + userText.trim()
     });
 
-    // Record user question (without the repeated context)
     aiState.messages.push({ role: "user", content: userText.trim() });
 
     try {
@@ -8004,7 +8392,6 @@
   async function callAI(messages) {
     var lastErr = null;
 
-    // Try the OpenAI-compatible endpoint first
     try {
       var res = await fetch(AI_ENDPOINTS[0], {
         method: "POST",
@@ -8023,7 +8410,6 @@
             return String(data.choices[0].message.content || "").trim();
           }
         } catch (e) {
-          // Non-JSON text response – return raw if it looks usable
           if (text && text.length > 0 && text.length < 20000) return text.trim();
         }
         throw new Error("Unexpected response from AI service");
@@ -8033,7 +8419,6 @@
       lastErr = e;
     }
 
-    // Fallback to messages-array endpoint
     try {
       var res2 = await fetch(AI_ENDPOINTS[1], {
         method: "POST",
@@ -8056,8 +8441,11 @@
   }
 
   function initAIAssistant() {
-    var fab = $id("aiFab");
-    if (fab) fab.addEventListener("click", showAIPanel);
+    // AI triggers are now in the header — bind to BOTH (desktop + mobile)
+    var triggers = document.querySelectorAll(".ai-trigger");
+    triggers.forEach(function (btn) {
+      btn.addEventListener("click", showAIPanel);
+    });
 
     var close = $id("aiClose");
     if (close) close.addEventListener("click", hideAIPanel);
@@ -8096,7 +8484,6 @@
       });
     });
 
-    // Reset AI state when a new document is loaded
     window.addEventListener("hex:docLoaded", function () {
       aiState.pdfLoaded = false;
       aiState.pdfContext = "";
@@ -8106,7 +8493,6 @@
       setAISub("Ready · ask anything about your PDF");
       setAIWarn("");
       playNotifTone("info");
-      // If the panel is open, start extraction right away
       var panel = $id("aiPanel");
       if (panel && panel.classList.contains("open")) {
         extractPdfForAI();
@@ -8124,11 +8510,7 @@
     });
   }
 
-  /* ============================================================
-     WIRE UP THE MEDIA PANEL
-     ============================================================ */
   function initMediaPanel() {
-    // Toolbar media panel
     var tmpPlay = $id("tmpPlay");
     if (tmpPlay) tmpPlay.addEventListener("click", triggerPlayPause);
 
@@ -8151,7 +8533,6 @@
     var tmpNote = $id("tmpNote");
     if (tmpNote) tmpNote.addEventListener("click", openTtsNotePanel);
 
-    // Quick pill in menubar
     var tqpPlay = $id("tqpPlay");
     if (tqpPlay) tqpPlay.addEventListener("click", triggerPlayPause);
 
@@ -8166,10 +8547,8 @@
       });
     }
 
-    // Periodically refresh state from TTS dock (dock exposes classes only)
     setInterval(updateMediaPanelUI, 900);
 
-    // Watch TTS dock status for faster updates
     var dockStatus = $id("ttsStatus");
     if (dockStatus && window.MutationObserver) {
       try {
@@ -8183,9 +8562,6 @@
     updateMediaPanelUI();
   }
 
-  /* ============================================================
-     BOOT
-     ============================================================ */
   function boot() {
     patchSpeechSynthesisVolume();
     patchAudioConstructor();
@@ -8230,7 +8606,6 @@ function ctrlShiftKey(e, keyCode) {
 }
 
 document.onkeydown = (e) => {
-  // Disable F12, Ctrl + Shift + I, Ctrl + Shift + J, Ctrl + U
   if (
     event.keyCode === 123 ||
     ctrlShiftKey(e, 'I') ||
